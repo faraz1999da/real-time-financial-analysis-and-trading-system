@@ -1,0 +1,40 @@
+<!-- display.html -->
+<!-- ... (other HTML code) ... -->
+
+<script>
+  // Function to fetch and display messages from the server
+  function fetchMessage() {
+      var xhr = new XMLHttpRequest();
+
+      xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+              var data = JSON.parse(xhr.responseText);
+
+              // Check if a message is received
+              if (data.message !== null) {
+                  // Append the new message
+                  var messageContainer = document.getElementById('message-container');
+                  var p = document.createElement('p');
+                  p.textContent = data.message;
+                  messageContainer.appendChild(p);
+
+                  // Fetch the next message after 2 seconds (adjust as needed)
+                  setTimeout(fetchMessage, 2000);
+              } else {
+                  // No more messages, you can handle this case if needed
+                  console.log('No more messages');
+              }
+          }
+      };
+
+      // Replace '/display/' with the actual URL path
+      xhr.open('GET', '/display/', true);
+      xhr.send();
+  }
+
+  // Fetch the initial message
+  fetchMessage();
+
+</script>
+
+<!-- ... (other HTML code) ... -->

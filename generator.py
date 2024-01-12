@@ -15,7 +15,7 @@ p.cpu_affinity([0])  # Pin to the first core.
 stocks = ["AAPL", "GOOGL", "AMZN", "MSFT", "TSLA"]
 
 # API endpoint to send the generated data
-api_endpoint = "http://localhost:5000/ingest"
+api_endpoint = "http://localhost:5000/ingest/"
 
 
 def generate_data():
@@ -112,5 +112,6 @@ if __name__ == "__main__":
     threading.Thread(target=send_additional_data, daemon=True).start()
     while True:
         data = generate_data()
+        print(data)
         send_data(data)
         time.sleep(random.uniform(1, 5))
